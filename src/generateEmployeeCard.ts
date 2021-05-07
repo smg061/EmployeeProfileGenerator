@@ -32,6 +32,11 @@ export function creatEmployeeCard(employee : any) :string
 // input is an array of strings in which each element is the output of the cardTemplate function
 export function createHTMLFromEmployeeCards(card: string[]):string
 {
+  // return an empty string if no cards are provided
+  if(card.length < 1) 
+  {
+    return "";
+  }
   // string with the html page's head
   let head = `
   <!doctype html>

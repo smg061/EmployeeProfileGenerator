@@ -7,10 +7,17 @@ import {creatEmployeeCard, createHTMLFromEmployeeCards} from './generateEmployee
 import * as inquirer from 'inquirer';
 import {promises as fs} from 'fs';
 
-let employees :Employee[] = [];
+let employees: Employee[] = [];
 let employeeCards: string[] = [];
 let questions = 
 [
+    {
+        type: "list",
+        name: "employeeType",
+        message: "What kind of employee do you want to add add?",
+        choices: ["Engineer", "Intern", "Manager"]
+    },
+
     {
         type: "input",
         name: "employeeName",
@@ -29,7 +36,20 @@ let questions =
     {
         type: "input",
         name: "employeeGithub",
-        message: "What is the employees github username?"
+        message: "What is the employees github username?",
+        when: function(answers){ return answers.employeeType == "Engineer" }
+    },
+    {
+        type: "input",
+        name: "employeeOfficeNumber",
+        message: "What is the employees office number?",
+        when: function(answers){ return answers.employeeType == "Manager" }
+    },
+    {
+        type: "input",
+        name: "employeeSchool",
+        message: "What is the employee's current school?",
+        when: function(answers){ return answers.employeeType == "Intern" }
     }
     
 ];
@@ -39,9 +59,7 @@ let questions =
 // enum that contains options for the type of employee
 enum Commands
 {
-    Engineer = "Add Engineer",
-    Intern = "Add Intern",
-    Manager = "Add Manager",
+    AddEmployee = "Add employee",
     Quit = "Quit"
 }
 
@@ -56,49 +74,77 @@ function promptUser()
             choices: Object.values(Commands)
         }
     )
-    // probably going to need to user promises here!
     .then(answers => 
         {
+            let employeeType = answers.command;
             switch(answers['command'])
             {
-                case Commands.Engineer:
+                case Commands.AddEmployee:
                     createEmployeePrompt();
                     break;
-                
-                case Commands.Intern:
-                    break;
-                
-                case Commands.Manager:
-                    break;
-                
                 case Commands.Quit:
+                    // create the html text from all the generatd employeecards
                     let myPage = createHTMLFromEmployeeCards(employeeCards);
-                    return new Promise(function (res, rej)
-                    {
-                        fs.writeFile("card-sample.html", myPage,);
-                        
-                    })
+                    writeToFile(myPage);
+                    // promise allows to write to file only when the user quits
+                    // return new Promise(function (res, rej)
+                    // {
+                    //     if(myPage && myPage !="")
+                    //     {
+                    //         fs.writeFile("card-sample.html", myPage);
+                    //         console.log("File written successfully")
+                    //     }
+                    //     else 
+                    //     {
+                    //         console.log("No employee cards to write")
+                    //     }
+                    // })
             }
         })
-
-        
 }
 
 
 
 function createEmployeePrompt(): void
 {
-    inquirer.prompt(questions).then( answers=> 
+    inquirer.prompt(questions).then(answers=> 
         {
-            let myEng = new Engineer(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.employeeGithub);
-            employeeCards.push(creatEmployeeCard(myEng));
+            let newEmployee;
+            switch(answers.employeeType)
+            {
+                case "Engineer":
+                    newEmployee = new Engineer(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.employeeGithub);
+                    break;
+                case "Intern":
+                    newEmployee = new Intern(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.employeeSchool);
+                    break;
+                case "Manager":
+                    newEmployee = new Manager(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.employeeOfficeNumber);
+                    break;
+            }
+            employeeCards.push(creatEmployeeCard(newEmployee));
             promptUser()
 
         })
 }
 
 
+async function writeToFile(myPage)
+{
+    return new Promise(function (res, rej)
+    {
+        if(myPage && myPage !="")
+        {
+            fs.writeFile("card-sample.html", myPage);
+            console.log("File written successfully")
+        }
+        else 
+        {
+            console.log("No employee cards to write")
+        }
+    })
 
+}
 
 promptUser();
 

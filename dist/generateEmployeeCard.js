@@ -31,6 +31,10 @@ exports.creatEmployeeCard = creatEmployeeCard;
 // this function returns a string representation of a complete html page
 // input is an array of strings in which each element is the output of the cardTemplate function
 function createHTMLFromEmployeeCards(card) {
+    // return an empty string if no cards are provided
+    if (card.length < 1) {
+        return "";
+    }
     // string with the html page's head
     let head = `
   <!doctype html>
