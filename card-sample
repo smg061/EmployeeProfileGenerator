@@ -15,34 +15,16 @@
       <div class="column">
         <div class="card">
             <div class="card-header bg-info text-light">
-                <h5 class=""> chotto </h5>
+                <h5 class=""> ch </h5>
                 <p> Engineer <i class= "fa fa-briefcase" style="display:inline; margin: 3px;"></i></p> 
             </div>
 
     <div class="card-body">
         <div class="card-body border-dark">
           <ul class="list-group">
-            <li class="list-group-item list-group-item-action">ID: matte</li>
-            <li class="list-group-item list-group-item-action"> E-mail kudasai   </li>
-            <li class="list-group-item list-group-item-action"> GitHub : masekna </li>
-          </ul>
-        </div>    
-    </div>
-    </div>
-    </div>
-      <div class="column">
-        <div class="card">
-            <div class="card-header bg-info text-light">
-                <h5 class=""> chotto </h5>
-                <p> Engineer <i class= "fa fa-briefcase" style="display:inline; margin: 3px;"></i></p> 
-            </div>
-
-    <div class="card-body">
-        <div class="card-body border-dark">
-          <ul class="list-group">
-            <li class="list-group-item list-group-item-action">ID: masdsdsd</li>
-            <li class="list-group-item list-group-item-action"> E-mail sdsdsd   </li>
-            <li class="list-group-item list-group-item-action"> GitHub : sdsdsds </li>
+            <li class="list-group-item list-group-item-action">ID: d</li>
+            <li class="list-group-item list-group-item-action"> E-mail d   </li>
+            <li class="list-group-item list-group-item-action"> GitHub : d </li>
           </ul>
         </div>    
     </div>

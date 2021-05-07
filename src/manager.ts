@@ -12,7 +12,7 @@ export class Manager extends Employee
             "Role": this.getRole(),
             "UniqueField": "Office number",
             "UniqueFieldValue": this.getOfficeNumber(),
-            "Icon": "fa fa-briefcase"
+            "Icon": "fa fa-pencil"
         }
     }
     getOfficeNumber():string { return this.officeNumber; }

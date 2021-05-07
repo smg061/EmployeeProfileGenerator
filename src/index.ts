@@ -2,52 +2,103 @@
 import {Employee} from './employee';
 import {Engineer} from './engineer';
 import {Intern} from './intern';
-import {cardTemplate, pageTemplate} from './generateEmployeeCard';
+import {Manager} from './manager';
+import {creatEmployeeCard, createHTMLFromEmployeeCards} from './generateEmployeeCard';
 import * as inquirer from 'inquirer';
-import * as fs from 'fs';
+import {promises as fs} from 'fs';
+
+let employees :Employee[] = [];
+let employeeCards: string[] = [];
+let questions = 
+[
+    {
+        type: "input",
+        name: "employeeName",
+        message: "What is the employees name?"
+    },
+    {
+        type: "input",
+        name: "employeeId",
+        message: "What is the employees id?"
+    },
+    {
+        type: "input",
+        name: "employeeEmail",
+        message: "What is the employees email?"
+    },
+    {
+        type: "input",
+        name: "employeeGithub",
+        message: "What is the employees github username?"
+    }
+    
+];
 
 
-enum typeOfEmployees
+
+// enum that contains options for the type of employee
+enum Commands
 {
-    Engineer = "Engineer",
-    Intern = "Intern",
-    Manager = "Manager",
+    Engineer = "Add Engineer",
+    Intern = "Add Intern",
+    Manager = "Add Manager",
+    Quit = "Quit"
 }
 
 
-let myEng = new Engineer("Max", 3, "pablohoney@gmail.com", "smg061");
-let myIntern = new Intern("Santos", 4, "max.go.342@yahoo.com", "Sam Houston");
-
-function promptUser():void
+function promptUser()
 {
     inquirer.prompt(
         {
             type: 'list',
             name: 'command',
-            message: 'Add which type of employee',
-            choices: Object.values(typeOfEmployees)
+            message: "Select which type of employee to add. Select 'Quit' to exit",
+            choices: Object.values(Commands)
         }
     )
+    // probably going to need to user promises here!
     .then(answers => 
         {
-            promptUser();
+            switch(answers['command'])
+            {
+                case Commands.Engineer:
+                    createEmployeePrompt();
+                    break;
+                
+                case Commands.Intern:
+                    break;
+                
+                case Commands.Manager:
+                    break;
+                
+                case Commands.Quit:
+                    let myPage = createHTMLFromEmployeeCards(employeeCards);
+                    return new Promise(function (res, rej)
+                    {
+                        fs.writeFile("card-sample.html", myPage,);
+                        
+                    })
+            }
         })
 
+        
 }
 
-let myExport = cardTemplate(myEng);
-let myPage = pageTemplate(myExport);
-let myAppend = cardTemplate(myIntern);
-fs.writeFile('./card-sample.html', myPage, (err) => 
-{
-    if (err) throw err;
-    else console.log("File Written succesfully");
-     
-});
 
-fs.appendFile('./card-sample.html', myAppend, (err) => 
+
+function createEmployeePrompt(): void
 {
-    if (err) throw err;
-    else console.log("File Written succesfully");
-     
-});
+    inquirer.prompt(questions).then( answers=> 
+        {
+            let myEng = new Engineer(answers.employeeName, answers.employeeId, answers.employeeEmail, answers.employeeGithub);
+            employeeCards.push(creatEmployeeCard(myEng));
+            promptUser()
+
+        })
+}
+
+
+
+
+promptUser();
+

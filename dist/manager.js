@@ -15,7 +15,7 @@ class Manager extends employee_1.Employee {
                 "Role": this.getRole(),
                 "UniqueField": "Office number",
                 "UniqueFieldValue": this.getOfficeNumber(),
-                "Icon": "fa fa-briefcase"
+                "Icon": "fa fa-pencil"
             };
     }
     getOfficeNumber() { return this.officeNumber; }
