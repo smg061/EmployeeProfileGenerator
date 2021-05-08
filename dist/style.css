@@ -3,7 +3,9 @@
 {
     padding: 5rem;
 }
-.col-4{
+.col{
+    height: 30rem;
+    max-height: 40rem;
     padding: 1rem;
     align-items:stretch;
     color:blueviolet;
@@ -26,5 +28,18 @@
     background-color: #5CBEEA
 }
 
+@media screen and (max-width: 1280px) {
+    .row{ padding: 5rem; float: center}
+    .card {max-width: 25rem; height:fit-content; float: center;}
+    
+  }
+
+
+@media screen and (max-width: 600px) {
+    .col{ padding: 0.1rem; float: center; align-self: center;}
+    .card {width: 20rem; height:max-content; float: center;}
+
+    
+  }
 
 
