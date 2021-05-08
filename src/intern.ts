@@ -8,6 +8,7 @@ export class Intern extends Employee
         // set the unique fields for this subclass
         this.uniqueFieldsMap.uniqueFieldValue = this.getSchool();
         this.uniqueFieldsMap.uniqueField = "School";
+        this.uniqueFieldsMap.icon = "fa fa-book";
 
         if (school == "" || school === undefined || typeof school !== "string")
         {

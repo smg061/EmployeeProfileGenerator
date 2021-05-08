@@ -1,0 +1,30 @@
+
+.row 
+{
+    padding: 5rem;
+}
+.col-4{
+    padding: 1rem;
+    align-items:stretch;
+    color:blueviolet;
+    background-color:white;
+    flex-wrap: wrap;
+}
+
+.card
+{
+    height: 24rem;
+    
+}
+
+.card-header {
+    background-color: #E67B39;
+
+}
+.jumbotron
+{
+    background-color: #5CBEEA
+}
+
+
+

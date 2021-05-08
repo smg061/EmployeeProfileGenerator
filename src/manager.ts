@@ -9,6 +9,7 @@ export class Manager extends Employee
         // set the unique field value to the office number
         this.uniqueFieldsMap.uniqueField = "Office number";
         this.uniqueFieldsMap.uniqueFieldValue = this.getOfficeNumber();
+        this.uniqueFieldsMap.icon = "fa fa-pencil"
     
         if (officeNumber == "" || officeNumber === undefined)
         {
