@@ -6,6 +6,7 @@
 .col{
     height: 30rem;
     max-height: 40rem;
+    max-width: 30rem;
     padding: 1rem;
     align-items:stretch;
     color:blueviolet;
@@ -19,6 +20,10 @@
     
 }
 
+li{
+    height: fit-content;
+}
+
 .card-header {
     background-color: #E67B39;
 
@@ -29,15 +34,23 @@
 }
 
 @media screen and (max-width: 1280px) {
-    .row{ padding: 5rem; float: center}
-    .card {max-width: 25rem; height:fit-content; float: center;}
-    
+    .row{ padding: 1rem 0rem 5rem 5rem; float: center}
+    .card {max-width: 50rem; width:30rem; height:fit-content; float: center; }
+    .col{ padding: 1rem; float: center; align-self: center; display:flexbox;}
+
+  }
+
+  @media screen and (max-width: 900px) {
+    .row{ padding: 1rem 0rem 5rem 5rem; float: center}
+    .card {max-width: 50rem; width:35rem; height:25rem; float: center;}
+    .col{ padding: 1rem; float: center; align-self: center; display:flexbox;}
+
   }
 
 
 @media screen and (max-width: 600px) {
-    .col{ padding: 0.1rem; float: center; align-self: center;}
-    .card {width: 20rem; height:max-content; float: center;}
+    .col{ padding: 1rem; float: center; align-self: center; display:flexbox;}
+    .card {width: 25rem; height:25rem; float: center; }
 
     
   }

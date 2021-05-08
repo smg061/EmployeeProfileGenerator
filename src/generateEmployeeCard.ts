@@ -1,13 +1,14 @@
 
 // this function takes in an employee (or any of its subclasses) and uses its fields to generate a unique card
 
+let separator:string = `<div class="w-100"></div>` // this is an html to allow cols to wrap; it's conditionally added if there's more than 4 cards added
 export function createEmployeeCard(employee : any): string 
 {
   // deconstruct the UniqueMap object into its values to use them for the template string
     let { role, uniqueField, uniqueFieldValue, icon} = employee.getUniqueMap();
     // construct the template string with the employee object's fields
     let template = `
-      <div class="col-4">
+      <div class="col">
         <div class="card">
             <div class="card-header text-light">
                 <h5 class=""> ${employee.getName()} </h5>
@@ -33,6 +34,7 @@ export function createEmployeeCard(employee : any): string
 // input is an array of strings in which each element is the output of the cardTemplate function
 export function createHTMLFromEmployeeCards(card: string[]):string
 {
+
   // return an empty string if no cards are provided
   if(card.length < 1) 
   {
@@ -65,7 +67,15 @@ export function createHTMLFromEmployeeCards(card: string[]):string
   // I'm told string concatenation is expensive and this is the better way to do it:
   // Declare empty array, append each card to the array, and then declare a new string that joins all the array elements
   let contentArray = [];
-  card.forEach(card => contentArray.push(card));
+  card.forEach((card, index) =>{ 
+
+    if(index> 1 && index % 3 === 0) //add separator if the index is divisible by 3
+    {
+       card += separator;
+    }
+    contentArray.push(card)
+  
+  });
   let content = contentArray.join("");
 
   // bottom part of the page
