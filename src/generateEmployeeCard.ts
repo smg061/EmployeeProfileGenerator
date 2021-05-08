@@ -1,16 +1,16 @@
 
 // this function takes in an employee (or any of its subclasses) and uses its fields to generate a unique card
-export function creatEmployeeCard(employee : any) :string 
+export function createEmployeeCard(employee : any): string 
 {
-  // deconstruct the UniqueMap object into its values to user for the template string
-    let { Role, UniqueField, UniqueFieldValue, Icon} = employee.getUniqueMap();
+  // deconstruct the UniqueMap object into its values to use them for the template string
+    let { role, uniqueField, uniqueFieldValue, icon} = employee.getUniqueMap();
     // construct the template string with the employee object's fields
     let template = `
       <div class="column">
         <div class="card">
             <div class="card-header bg-info text-light">
                 <h5 class=""> ${employee.getName()} </h5>
-                <p> ${employee.getRole()} <i class= "${Icon}" style="display:inline; margin: 3px;"></i></p> 
+                <p> ${employee.getRole()} <i class= "${icon}" style="display:inline; margin: 3px;"></i></p> 
             </div>
 
     <div class="card-body">
@@ -18,7 +18,7 @@ export function creatEmployeeCard(employee : any) :string
           <ul class="list-group">
             <li class="list-group-item list-group-item-action">ID: ${employee.getId()}</li>
             <li class="list-group-item list-group-item-action"> E-mail ${employee.getEmail()}   </li>
-            <li class="list-group-item list-group-item-action"> ${UniqueField} : ${UniqueFieldValue} </li>
+            <li class="list-group-item list-group-item-action"> ${uniqueField} : ${uniqueFieldValue} </li>
           </ul>
         </div>    
     </div>
@@ -37,6 +37,7 @@ export function createHTMLFromEmployeeCards(card: string[]):string
   {
     return "";
   }
+
   // string with the html page's head
   let head = `
   <!doctype html>
@@ -53,16 +54,19 @@ export function createHTMLFromEmployeeCards(card: string[]):string
     <div class="row">
     `
 
-  // append the content of each input card to the content empty content string
-  let content = '';
-  card.forEach(card => content+= card);
+  // I'm told string concatenation is expensive and this is the better way to do it:
+  // Declare empty array, append each card to the array, and then declare a new string that joins all the array elements
+  let contentArray = [];
+  card.forEach(card => contentArray.push(card));
+  let content = contentArray.join("");
+
   // bottom part of the page
   let bottom = `
     </div>
     </body>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     `
-    // return a string of all concatenated parts
+    // return a string of all concatenated parts; it's like a sandwich, but with strings;
     return head + content + bottom;
 }
 

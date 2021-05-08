@@ -5,13 +5,13 @@ export class Engineer extends Employee
     constructor(public name: string, public id: number, public email: string, public github: string, public role = "Engineer")
     {
         super(name, id, email);
-        this.uniqueFieldsMap = 
+        // set the unique fields for this subclass
+        this.uniqueFieldsMap.uniqueField = "Github";
+        this.uniqueFieldsMap.uniqueFieldValue = this.getGithub();
+        this.uniqueFieldsMap.icon = "fa fa-star";
+        if (github == "" || github === undefined || typeof github !== "string")
         {
-        
-            "Role": this.getRole(),
-            "UniqueField": "GitHub",
-            "UniqueFieldValue": this.getGithub(),
-            "Icon": "fa fa-briefcase"
+            throw new Error("Please provide a github username");
         }
     }
     getGithub() { return this.github; }

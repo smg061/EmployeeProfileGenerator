@@ -6,13 +6,13 @@ export class Manager extends Employee
     constructor(public name :string, public id: number, public email :string, public officeNumber: string, public role: string = "Manager")
     {
         super(name, id, email);
-        this.uniqueFieldsMap = 
+        // set the unique field value to the office number
+        this.uniqueFieldsMap.uniqueField = "Office number";
+        this.uniqueFieldsMap.uniqueFieldValue = this.getOfficeNumber();
+    
+        if (officeNumber == "" || officeNumber === undefined)
         {
-        
-            "Role": this.getRole(),
-            "UniqueField": "Office number",
-            "UniqueFieldValue": this.getOfficeNumber(),
-            "Icon": "fa fa-pencil"
+            throw new Error("Please provide a valid ofice number");
         }
     }
     getOfficeNumber():string { return this.officeNumber; }
