@@ -10,8 +10,6 @@ This projects uses inquirer to provide prompts to generate the profile of a team
 
 * [Usage](#usage)
 
-* [License](#license)
-
 * [Contributing Guidelines](#contributing)
 
 * [Testing Instructions](#tests)
